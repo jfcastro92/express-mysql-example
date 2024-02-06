@@ -1,5 +1,5 @@
 import express from "express";
-import programmingLanguagesRouter from './routes/programmingLanguages.js';
+import dogBBreedsRouter from './routes/dogBreeds.js';
 
 
 const app = express();
@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   res.json({ message: "API using Express, MySQL and Javascript" });
 });
 
-app.use("/programming-languages", programmingLanguagesRouter);
+app.use("/dogBreeds", dogBBreedsRouter);
 
 
 /* Error handler middleware */

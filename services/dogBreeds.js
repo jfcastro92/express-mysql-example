@@ -5,9 +5,9 @@ import { getOffset, emptyOrRows } from '../helper.js';
 
 async function getMultiple(page = 1){
   const offset = getOffset(page, listPerPage.listPerPage);
+  console.log("QUERY: " + `SELECT id, breed_name, breed_group, section, country, url, image, pdf FROM localhost.dog_breed LIMIT ${offset},${listPerPage.listPerPage}`);
   const rows = await query(
-    `SELECT id, name, group, section, country, url, image, pdf 
-    FROM localhost.dog_breed LIMIT ${offset},${listPerPage.listPerPage}`
+    `SELECT id, breed_name, breed_group, section, country, url, image, pdf FROM localhost.dog_breed LIMIT ${offset},${listPerPage.listPerPage}`
   );
   const data = emptyOrRows(rows);
   const meta = {page};
@@ -21,9 +21,9 @@ async function getMultiple(page = 1){
 async function create(dog_breed){
     const result = await db.query(
       `INSERT INTO dog_breed 
-      (name, group, section, provisional, country, url, image, pdf) 
+      (breed_name, breed_group, section, provisional, country, url, image, pdf) 
       VALUES 
-      ('${dog_breed.name}', ${dog_breed.group}, ${dog_breed.section}, 
+      ('${dog_breed.breed_name}', ${dog_breed.breed_group}, ${dog_breed.section}, 
       ${dog_breed.provisional}, ${dog_breed.country},  ${dog_breed.url},  
       ${dog_breed.image},  ${dog_breed.pdf})`
     );
@@ -40,7 +40,7 @@ async function create(dog_breed){
 async function update(id, dog_breed){
     const result = await db.query(
       `UPDATE dog_breed 
-      SET name="${dog_breed.name}", group=${dog_breed.group}, section=${dog_breed.section}, 
+      SET breed_name="${dog_breed.breed_name}", breed_group=${dog_breed.breed_group}, section=${dog_breed.section}, 
       provisional=${dog_breed.provisional}, country=${dog_breed.country}, url=${dog_breed.url},
       image=${dog_breed.image}, pdf=${dog_breed.pdf}   
       WHERE id=${id}` 
